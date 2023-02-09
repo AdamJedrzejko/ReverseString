@@ -1,4 +1,11 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import util.Utils;
 
@@ -6,9 +13,7 @@ public class ReverseString {
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(System.in));
-        File file = null;
-        BufferedWriter bufferedWriter = null;
-        FileWriter fileWriter = null;
+        BufferedWriter bufferedWriter;
         System.out.println("Enter absolute path for your files:");
         String path = reader.readLine();
         System.out.println("Enter input file name:");
@@ -17,9 +22,7 @@ public class ReverseString {
         String outputFileName = reader.readLine();
         try {
             reader = new BufferedReader(new FileReader(path + inputFileName));
-            file = new File(path + outputFileName);
-            fileWriter = new FileWriter(file);
-            bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter = Files.newBufferedWriter(Paths.get(path + outputFileName), StandardCharsets.UTF_8);
             String line = reader.readLine();
             while (line != null) {
                 bufferedWriter.write(Utils.reverseString(line));
